@@ -1,6 +1,0 @@
-fastapi
-uvicorn[standard]
-gunicorn
-openpyxl
-mysql-connector-python
-python-multipart
