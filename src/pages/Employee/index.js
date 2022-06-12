@@ -30,10 +30,9 @@ const Employee = () => {
   const [data, setData] = useState([])
   const [pageSize, setPageSize] = useState(100)
   const [page, setPage] = useState(1)
-  const [employee, setEmployee] = useState([])
 
   const getData = async () => {
-    const url = `https://back-god.herokuapp.com/empleado?pagination=${page}&quantity=${10}`
+    const url = `http://127.0.0.1:8000/empleado?pagination=${page}&quantity=${pageSize}`
     const result = await axios.get(url)
     setData(result.data)
   }
@@ -46,19 +45,6 @@ const Employee = () => {
     setPageSize(event.target.value)
   }
   
-  const Employee = () => {
-    data.map((employee) => {
-      const emp = {
-        codigo: employee.codigo,
-        nombre: employee.nombre
-      }
-      setEmployee(emp)
-    })
-  }
-
-
-
-
   return (
     <div className="container-employee">
       <Sidebar />

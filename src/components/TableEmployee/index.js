@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 import { Button, Select, MenuItem } from '@mui/material'
 
@@ -46,11 +46,9 @@ function CustomPagination(props) {
         label="Rows"
         onChange={setSize}
       >
+        <MenuItem value={5}>5</MenuItem>
         <MenuItem value={10}>10</MenuItem>
-        <MenuItem value={20}>20</MenuItem>
-        <MenuItem value={25}>25</MenuItem>
-        <MenuItem value={50}>50</MenuItem>
-        <MenuItem value={100}>100</MenuItem>
+        <MenuItem value={15}>15</MenuItem>
       </Select>
       <Button disabled={page <= 1} onClick={() => setPage(page - 1)}>
         Previous
@@ -61,6 +59,16 @@ function CustomPagination(props) {
 }
 const TableEmployee = (props) => {
   const { rows, columns, size, setSize, page, setPage } = props
+  const [employee, setEmployee] = useState([{
+        codigo: 0,
+        nombre: "",
+        dependencia: "",
+        cargo: "",
+        fecha_ingreso: 0,
+        eps: "",
+        pension: "",
+        rol: ""
+  }])
 
   const Test = () => (
     <CustomPagination
@@ -71,13 +79,30 @@ const TableEmployee = (props) => {
     />
   )
 
+  const Employee = () => {
+    const empleado = rows.map((employee) => {
+      return ({
+        codigo: employee.codigo,
+        nombre: employee.nombre,
+        dependencia: employee.dependencia.nombre,
+        cargo: employee.cargo.nombre,
+        fecha_ingreso: employee.fecha_ingreso,
+        eps: employee.eps.nombre,
+        pension: employee.pension.nombre,
+        rol: employee.rol.nombre
+      })
+    })
+    setEmployee(empleado)
+    console.log(employee)
+  }
+
   return (
     <div className="container-table">
       <DataGrid
         getRowId={(row) => row.codigo}
         rows={rows}
         columns={columns}
-        rowsPerPageOptions={[10, 20, 30, 40, 50, 100]}
+        rowsPerPageOptions={[5, 10 ,15]}
         components={{
           Toolbar: CustomToolbar,
           Pagination: Test,
