@@ -37,6 +37,8 @@ const CustomToolbar = () => {
 function CustomPagination(props) {
   const { page, setPage, size, setSize } = props
 
+ 
+
   return (
     <div>
       <Select
@@ -46,6 +48,7 @@ function CustomPagination(props) {
         label="Rows"
         onChange={setSize}
       >
+         <MenuItem value={5}>5</MenuItem>
         <MenuItem value={10}>10</MenuItem>
         <MenuItem value={20}>20</MenuItem>
         <MenuItem value={25}>25</MenuItem>
@@ -71,11 +74,33 @@ const TableBook = (props) => {
     />
   )
 
+  const Rows = () => {
+    const book = rows.map((book)=>{
+      return ({
+        book_id: book.book_id,
+        num_pages: book.num_pages,
+        average_rating: book.average_rating,
+        title: book.title,
+        publication_date: book.publication_date,
+        ratings_count: book.ratings_count,
+        text_reviews_count: book.text_reviews_count,
+        isbn: book.isbn,
+        isbn_13: book.isbn_13,
+        idioma: book.idioma.nombre,
+        publicador: book.publicador.nombre,
+        autores: book.autores.map((act) => act.nombre)
+        
+      }
+      )
+    })
+    return book
+  }
+
   return (
     <div className="container-table">
       <DataGrid
-        getRowId={(row) => row.bookID}
-        rows={rows}
+        getRowId={(row) => row.book_id}
+        rows={Rows()}
         columns={columns}
         rowsPerPageOptions={[10, 20, 30, 40, 50, 100]}
         components={{
