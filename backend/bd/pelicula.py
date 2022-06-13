@@ -64,19 +64,25 @@ def get_peliculas(pagination:int, quiantity:int, title:str, mydb) -> Tuple:
     pag = ""
     q_title = ""
     if len(title) > 0:
-        q_title = "AND LOWER(PELICULA.titulo) LIKE LOWER('%" + title + "%')"
+        q_title = "AND LOWER(PEL.titulo) LIKE LOWER('%" + title + "%')"
     if quiantity != -1 and pagination != -1:
-        pag = f'LIMIT {quiantity} OFFSET {quiantity*pagination}'
+        pag = f'LIMIT {pagination*quiantity},{quiantity}'
 
-    cursor.execute('''
-    SELECT PELICULA.codigo, PELICULA.titulo, GENERO.nombre, GENERO.codigo
-    FROM PELICULA, GENERO, PELICULA_GENERO
-    WHERE PELICULA.codigo = PELICULA_GENERO.cod_pelicula
-    AND GENERO.codigo = PELICULA_GENERO.cod_genero
-    {q_title}
-    ORDER BY PELICULA.codigo
-    {pag}  
+
+    sql = ('''
+            SELECT  P.cod_pelicula, PEL.titulo, G.NOMBRE, PG.cod_genero
+        FROM (
+            SELECT DISTINCT cod_pelicula
+        FROM PELICULA
+        {pag}
+        ) P, PELICULA_GENERO PG, PELICULA PEL, GENERO G
+        WHERE P.cod_pelicula = PG.cod_pelicula
+        and P.cod_pelicula = PEL.codigo
+        and PG.cod_genero = G.codigo
+        {q_title}
     '''.format(q_title=q_title, pag=pag))
+
+    cursor.execute(sql)
 
 
     return cursor.fetchall()

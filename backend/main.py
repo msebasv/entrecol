@@ -139,9 +139,8 @@ async def get_empleado(nombre:str = ""):
     return empleados
 
 @app.get("/peliculas")
-async def get_peliculas(pagination:int=-1, quantity:int=-1, title:str=""):
+async def get_peliculas(pagination:int=0, quantity:int=10, title:str=""):
     datos = pelicula.get_peliculas(pagination, quantity, title, mydb)
-    print(datos)
     lista_pelis:List[Pelicula] = []
     if len(datos) > 1:
         new_peli = Pelicula(datos[0][0], datos[0][1], [Genero(codigo=datos[0][3], nombre=datos[0][2])])
