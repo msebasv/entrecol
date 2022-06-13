@@ -6,23 +6,23 @@ import TableBook from '../../components/TableBook'
 import './index.css'
 
 const columns = [
-  { title: 'Id', headerName: 'Id', field: 'book_id', width: 130 },
+  { title: 'Id', headerName: 'Id', field: 'bookID', width: 130 },
   { title: 'Title', headerName: 'Title', field: 'title', width: 400 },
   { title: 'Avarage Rating', headerName: 'Avarage Rating', field: 'average_rating', width: 120 },
   { title: 'Date', headerName: 'Date', field: 'publication_date', width: 100 },
   { title: 'Ratings Count', headerName: 'Ratings Count', field: 'ratings_count', width: 110 },
-  { title: 'Idioma', headerName: 'Idioma', field: 'idioma', width: 75 },
-  { title: 'Editorial', headerName: 'Publicator', field: 'publicador', width: 150 },
-  { title: 'Autores', headerName: 'Autores', field: 'autores', width: 250 },
+  { title: 'Idioma', headerName: 'Idioma', field: 'language_code', width: 75 },
+  { title: 'Editorial', headerName: 'Publicator', field: 'publisher', width: 150 },
+  { title: 'Autores', headerName: 'Autores', field: 'authors', width: 250 },
 ]
 
 const Book = () => {
   const [data, setData] = useState([])
   const [pageSize, setPageSize] = useState(5)
-  const [page, setPage] = useState(0)
+  const [page, setPage] = useState(1)
 
   const getData = async () => {
-    const url = `http://127.0.0.1:8000/libros?pagination=${page}&quinatity=${pageSize}`
+    const url = `http://localhost:5000/books?_page=${page}&_limit=${pageSize}`
     const result = await axios.get(url)
     setData(result.data)
   }

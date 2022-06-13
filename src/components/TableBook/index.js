@@ -55,7 +55,7 @@ function CustomPagination(props) {
         <MenuItem value={50}>50</MenuItem>
         <MenuItem value={100}>100</MenuItem>
       </Select>
-      <Button disabled={page <= 0} onClick={() => setPage(page - 1)}>
+      <Button disabled={page <= 1} onClick={() => setPage(page - 1)}>
         Previous
       </Button>
       <Button onClick={() => setPage(page + 1)}>Next</Button>
@@ -77,19 +77,15 @@ const TableBook = (props) => {
   const Rows = () => {
     const book = rows.map((book)=>{
       return ({
-        book_id: book.book_id,
+        bookID: book.bookID,
         num_pages: book.num_pages,
         average_rating: book.average_rating,
         title: book.title,
         publication_date: book.publication_date,
         ratings_count: book.ratings_count,
-        text_reviews_count: book.text_reviews_count,
-        isbn: book.isbn,
-        isbn_13: book.isbn_13,
-        idioma: book.idioma.nombre,
-        publicador: book.publicador.nombre,
-        autores: book.autores.map((act) => act.nombre)
-        
+        language_code: book.language_code,
+        publisher: book.publisher,
+        authors: book.authors        
       }
       )
     })
@@ -99,7 +95,7 @@ const TableBook = (props) => {
   return (
     <div className="container-table">
       <DataGrid
-        getRowId={(row) => row.book_id}
+        getRowId={(row) => row.bookID}
         rows={Rows()}
         columns={columns}
         rowsPerPageOptions={[10, 20, 30, 40, 50, 100]}

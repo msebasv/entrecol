@@ -27,9 +27,8 @@ import {
     Filler
   );
 
-const scores = [6, 5, 5, 5, 3, 4, 6, 4, 5];
-const scores2 = [1, 3, 2, 2, 4, 4, 5, 3, 2];
-const labels = [100, 200, 300, 400, 500, 600, 700];
+  const scores = [1066, 288, 553, 3711, 545, 1491, 1708, 5341, 520];
+  const labels = ["Adventure", "Animation", "Children", "Comedy", "Fantasy", "Action", "Thriller", "Drama", "Mystery"];
 
 const options = {
   fill: true,
@@ -50,28 +49,22 @@ const Graph = () => {
     return {
       datasets: [
         {
-          label: "Mis datos",
+          label: "Género",
           data: scores,
-          tension: 0.3,
+          tension: 0,
           borderColor: "rgb(75, 192, 192)",
           pointRadius: 6,
           pointBackgroundColor: "rgb(75, 192, 192)",
           backgroundColor: "rgba(75, 192, 192, 0.3)",
-        },
-        {
-          label: "Mis datos (2)",
-          tension: 0.3,
-          data: scores2,
-          borderColor: "green",
-          backgroundColor: "rgba(0, 255, 0, 0.3)",
-          pointRadius: 6,
         },
       ],
       labels,
     };
   }, []);
 
-  return <Line data={data} options={options} />
+  return (
+      <Line data={data} options={options} />
+    )
 }
 
 export default Graph
