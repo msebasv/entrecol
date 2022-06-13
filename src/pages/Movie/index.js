@@ -13,7 +13,7 @@ const columns = [
 
 const Movie = () => {
   const [data, setData] = useState([])
-  const [pageSize, setPageSize] = useState(5)
+  const [pageSize, setPageSize] = useState(10)
   const [page, setPage] = useState(0)
 
   const getData = async () => {

@@ -47,9 +47,10 @@ function CustomPagination(props) {
         label="Rows"
         onChange={setSize}
       >
-        <MenuItem value={5}>5</MenuItem>
         <MenuItem value={10}>10</MenuItem>
-        <MenuItem value={15}>15</MenuItem>
+        <MenuItem value={25}>25</MenuItem>
+        <MenuItem value={50}>50</MenuItem>
+        <MenuItem value={100}>100</MenuItem>
       </Select>
       <Button disabled={page <= 0} onClick={() => setPage(page - 1)}>
         Previous
@@ -89,7 +90,7 @@ const TableMovie = (props) => {
         getRowId={(row) => row.codigo}
         rows={Rows()}
         columns={columns}
-        rowsPerPageOptions={[5, 10, 15]}
+        rowsPerPageOptions={[10, 25, 50, 100]}
         components={{
           Toolbar: GridToolbar,
           Pagination: Test,
