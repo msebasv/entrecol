@@ -6,33 +6,18 @@ import TableMovie from '../../components/TableMovie'
 import './index.css'
 
 const columns = [
-  { title: 'Id', headerName: 'Id', field: 'bookID', width: 60 },
-  { title: 'Title', headerName: 'Title', field: 'title', width: 450 },
-  { title: 'Author', headerName: 'Author', field: 'authors', width: 300 },
-  { title: 'Pages', headerName: 'Pages', field: 'num_pages', width: 70 },
-  {
-    title: 'Language',
-    headerName: 'Language',
-    field: 'language_code',
-    width: 70,
-  },
-  { title: 'Date', headerName: 'Date', field: 'publication_date', width: 100 },
-  {
-    title: 'Publisher',
-    headerName: 'Publisher',
-    field: 'publisher',
-    width: 120,
-  },
-  { title: 'Rating', headerName: 'Rating', field: 'ratings_count', width: 110 },
+  { title: 'Codigo', headerName: 'Codigo', field: 'codigo', width: 60 },
+  { title: 'Title', headerName: 'Title', field: 'nombre', width: 450 },
+  { title: 'Genero', headerName: 'Genero', field: 'generos', width: 300 },
 ]
 
 const Movie = () => {
   const [data, setData] = useState([])
-  const [pageSize, setPageSize] = useState(100)
+  const [pageSize, setPageSize] = useState(5)
   const [page, setPage] = useState(1)
 
   const getData = async () => {
-    const url = `http://localhost:5000/books?_limit=${pageSize}&_page=${page}`
+    const url = `http://127.0.0.1:8000/peliculas?pagination=${page}&quantity=${pageSize}`
     const result = await axios.get(url)
     setData(result.data)
   }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { Button, Select, MenuItem } from '@mui/material'
 
@@ -47,11 +47,9 @@ function CustomPagination(props) {
         label="Rows"
         onChange={setSize}
       >
+        <MenuItem value={5}>5</MenuItem>
         <MenuItem value={10}>10</MenuItem>
-        <MenuItem value={20}>20</MenuItem>
-        <MenuItem value={25}>25</MenuItem>
-        <MenuItem value={50}>50</MenuItem>
-        <MenuItem value={100}>100</MenuItem>
+        <MenuItem value={15}>15</MenuItem>
       </Select>
       <Button disabled={page <= 1} onClick={() => setPage(page - 1)}>
         Previous
@@ -72,13 +70,26 @@ const TableMovie = (props) => {
     />
   )
 
+  const Rows = () => {
+    const mov = rows.map((movie)=>{
+      return ({
+        codigo: movie.codigo,
+        nombre: movie.nombre,
+        generos: movie.generos.map((gen) => gen.nombre)
+        
+      }
+      )
+    })
+    return mov
+  }
+
   return (
     <div className="container-table">
       <DataGrid
-        getRowId={(row) => row.bookID}
-        rows={rows}
+        getRowId={(row) => row.codigo}
+        rows={Rows()}
         columns={columns}
-        rowsPerPageOptions={[10, 20, 30, 40, 50, 100]}
+        rowsPerPageOptions={[5, 10, 15]}
         components={{
           Toolbar: GridToolbar,
           Pagination: Test,

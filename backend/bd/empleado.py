@@ -305,7 +305,7 @@ def get_empleados(quantity:int, page:int, fecha_inicio:str, fecha_fin:str, name:
         query_dates = f' AND fecha_ingreso <= \'{fecha_fin}\''
     
     if quantity != -1 and page != -1:
-        query_page = f' LIMIT {quantity} OFFSET {page}'
+        query_page = f' LIMIT {quantity} OFFSET {page * quantity}'
 
     sql = (f'SELECT * FROM EMPLEADO WHERE 1=1 {query_dates} {query_name} {query_page}')
 
