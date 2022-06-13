@@ -141,6 +141,7 @@ async def get_empleado(nombre:str = ""):
 @app.get("/peliculas")
 async def get_peliculas(pagination:int=0, quantity:int=10, title:str=""):
     datos = pelicula.get_peliculas(pagination, quantity, title, mydb)
+
     lista_pelis:List[Pelicula] = []
     if len(datos) > 1:
         new_peli = Pelicula(datos[0][0], datos[0][1], [Genero(codigo=datos[0][3], nombre=datos[0][2])])
@@ -155,7 +156,7 @@ async def get_peliculas(pagination:int=0, quantity:int=10, title:str=""):
     return lista_pelis
 
 @app.get("/libros")
-async def get_libros(pagination:int=-1, quinatity:int=-1, title:str="", fecha_inicio:str="", fecha_fin:str=""):
+async def get_libros(pagination:int=0, quinatity:int=10, title:str="", fecha_inicio:str="", fecha_fin:str=""):
     tuple_data = bdb.get_libros(pagination, quinatity, title, fecha_inicio, fecha_fin, mydb)
     libros:List[Libro] = []
     new_libro=Libro()

@@ -147,36 +147,29 @@ def get_libros(pagination:int, quiantity:int, tittle:str, fecha_inicio:str, fech
         query_fecha = f' AND publication_date <= \'{fecha_fin}\''
 
     if len(tittle) > 0:
-        q_tit = "AND LOWER(LIBRO.title) LIKE LOWER('%" + tittle + "%')"
+        q_tit = " AND LOWER(LIBRO.title) LIKE LOWER('%" + tittle + "%')"
         
     if quiantity != -1 and pagination != -1:
-        pag = f'LIMIT {quiantity} OFFSET {quiantity*pagination}'
-    cursor.execute('''
-        SELECT LIBRO.book_id,
-                LIBRO.num_pages,
-                LIBRO.average_rating,
-                LIBRO.title,
-                LIBRO.isbn,
-                LIBRO.isbn13,
-                LIBRO.publication_date,
-                LIBRO.ratings_count,
-                LIBRO.text_reviews_count,
-                AUTOR.codigo,
-                AUTOR.nombre,
-                IDIOMA.codigo,
-                IDIOMA.nombre,
-                PUBLICADOR.codigo,
-                PUBLICADOR.nombre
-        FROM LIBRO, LIBRO_AUTOR, AUTOR, IDIOMA, PUBLICADOR
-        WHERE LIBRO.book_id = LIBRO_AUTOR.cod_libro
-        AND LIBRO_AUTOR.cod_autor = AUTOR.codigo
-        AND LIBRO.cod_idioma = IDIOMA.codigo
-        AND LIBRO.cod_publicador = PUBLICADOR.codigo
+        pag = f'LIMIT {quiantity*pagination}, {quiantity}'
+
+
+    sql = ('''
+        SELECT  P.cod_libro, l.num_pages, l.average_rating, l.title, l.isbn, l.isbn13, l.publication_date,
+        l.ratings_count, l.text_reviews_count, a.codigo, a.nombre, i.codigo, i.nombre, p.codigo, p.nombre
+        FROM (
+            SELECT DISTINCT cod_libro
+        FROM LIBRO, LIBRO_AUTOR, AUTOR
+        {pag}
+        ) P, LIBRO l, LIBRO_AUTOR la, AUTOR a , IDIOMA i , PUBLICADOR p 
+        WHERE l.book_id = la.cod_libro
+        AND la.cod_autor = a.codigo
+        AND l.cod_idioma = i.codigo
+        AND l.cod_publicador = p.codigo
+        AND P.cod_libro = la.cod_libro
         {q_tit}
         {query_fecha}
-        ORDER BY LIBRO.title
-        {pag}   
-        '''.format(q_tit=q_tit, pag=pag, query_fecha=query_fecha))
-
+        ORDER BY l.title
+    '''.format(pag=pag, q_tit=q_tit, query_fecha=query_fecha))
+    cursor.execute(sql)
 
     return cursor.fetchall()
