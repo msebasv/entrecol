@@ -9,6 +9,7 @@ import Home from './pages/Home'
 import Book from './pages/Book'
 import Movie from './pages/Movie'
 import Employee from './pages/Employee'
+import GraphPage from './pages/GraphPage'
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/book" element={<Book />} />
           <Route path="/movie" element={<Movie />} />
           <Route path="/employee" element={<Employee />} />
+          <Route path="/graph" element={<GraphPage />} />
           <Route path="/" element={<Login />} />
         </Routes>
       </BrowserRouter>

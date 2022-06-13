@@ -10,6 +10,8 @@ import {
   useGridApiContext,
 } from '@mui/x-data-grid'
 
+import { Link } from 'react-router-dom'
+
 import './index.css'
 
 const getRowsFromCurrentPage = ({ apiRef }) =>
@@ -86,6 +88,9 @@ const TableMovie = (props) => {
 
   return (
     <div className="container-table">
+      <Link to="/graph">
+        <Button>Graph</Button>
+      </Link>
       <DataGrid
         getRowId={(row) => row.codigo}
         rows={Rows()}
