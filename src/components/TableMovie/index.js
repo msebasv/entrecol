@@ -51,7 +51,7 @@ function CustomPagination(props) {
         <MenuItem value={10}>10</MenuItem>
         <MenuItem value={15}>15</MenuItem>
       </Select>
-      <Button disabled={page <= 1} onClick={() => setPage(page - 1)}>
+      <Button disabled={page <= 0} onClick={() => setPage(page - 1)}>
         Previous
       </Button>
       <Button onClick={() => setPage(page + 1)}>Next</Button>

@@ -73,7 +73,7 @@ def get_peliculas(pagination:int, quiantity:int, title:str, mydb) -> Tuple:
             SELECT  P.cod_pelicula, PEL.titulo, G.NOMBRE, PG.cod_genero
         FROM (
             SELECT DISTINCT cod_pelicula
-        FROM PELICULA
+        FROM PELICULA, PELICULA_GENERO, GENERO
         {pag}
         ) P, PELICULA_GENERO PG, PELICULA PEL, GENERO G
         WHERE P.cod_pelicula = PG.cod_pelicula

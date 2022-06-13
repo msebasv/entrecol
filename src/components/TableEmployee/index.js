@@ -67,8 +67,14 @@ function CustomPagination(props) {
 
 const Date = () => {
   const [startDate, setStartDate] = useState(null);
+  const [finishDate, setFinishDate] = useState(null)
   return (
-    <DatePicker selected={startDate} onChange={date => setStartDate(date)} />
+    <div className='date-container'>
+      DATE FILTER
+      <DatePicker className="date" selected={startDate} onChange={date => setStartDate(date)} dateFormat="yyyy/MM/dd" scrollableMonthYearDropdown showYearDropdown/>
+      <span>-</span>
+      <DatePicker className="date" selected={finishDate} onChange={date => setFinishDate(date)} dateFormat="yyyy/MM/dd" scrollableMonthYearDropdown showYearDropdown/>
+    </div>
   );
 }
 

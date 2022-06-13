@@ -14,7 +14,7 @@ const columns = [
 const Movie = () => {
   const [data, setData] = useState([])
   const [pageSize, setPageSize] = useState(5)
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState(0)
 
   const getData = async () => {
     const url = `http://127.0.0.1:8000/peliculas?pagination=${page}&quantity=${pageSize}`

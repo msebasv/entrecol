@@ -6,7 +6,7 @@ import TableBook from '../../components/TableBook'
 import './index.css'
 
 const columns = [
-  { title: 'Id', headerName: 'Id', field: 'book_id', width: 30 },
+  { title: 'Id', headerName: 'Id', field: 'book_id', width: 130 },
   { title: 'Title', headerName: 'Title', field: 'title', width: 400 },
   { title: 'Avarage Rating', headerName: 'Avarage Rating', field: 'average_rating', width: 120 },
   { title: 'Date', headerName: 'Date', field: 'publication_date', width: 100 },
@@ -18,14 +18,16 @@ const columns = [
 
 const Book = () => {
   const [data, setData] = useState([])
-  const [pageSize, setPageSize] = useState(4)
-  const [page, setPage] = useState(1)
+  const [pageSize, setPageSize] = useState(5)
+  const [page, setPage] = useState(0)
 
   const getData = async () => {
-    const url = `http://127.0.0.1:8000/libros?pagination=${page}&quantity=${pageSize}`
+    const url = `http://127.0.0.1:8000/libros?pagination=${page}&quinatity=${pageSize}`
     const result = await axios.get(url)
     setData(result.data)
   }
+
+  console.log(data)
 
   useEffect(() => {
     getData()
